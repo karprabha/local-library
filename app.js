@@ -4,6 +4,7 @@ import path from "path";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import { fileURLToPath } from "url";
+import mongoose from "mongoose";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,6 +16,16 @@ const app = express();
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
+
+// Mongoose
+mongoose.set("strictQuery", false);
+const mongoDBURL = "mongodb://127.0.0.1:27017/local-library";
+
+const connectDB = async () => {
+    return await mongoose.connect(mongoDBURL);
+};
+
+connectDB().catch((err) => console.log(err));
 
 app.use(logger("dev"));
 app.use(express.json());
