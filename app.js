@@ -11,6 +11,7 @@ const __dirname = path.dirname(__filename);
 
 import indexRouter from "./routes/index.js";
 import usersRouter from "./routes/users.js";
+import catalogRouter from "./routes/catalog.js";
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/catalog", catalogRouter);
 
 app.use((req, res, next) => {
     next(createError(404));
