@@ -2,12 +2,30 @@ import BookInstance from "../models/bookinstance.js";
 import expressAsyncHandler from "express-async-handler";
 
 export const bookinstance_list = expressAsyncHandler(async (req, res, next) => {
-    res.send("NOT IMPLEMENTED: BookInstance list");
+    const allBookInstances = await BookInstance.find().populate("book").exec();
+
+    res.render("bookinstance_list", {
+        title: "Book Instance List",
+        bookinstance_list: allBookInstances,
+    });
 });
 
 export const bookinstance_detail = expressAsyncHandler(
     async (req, res, next) => {
-        res.send(`NOT IMPLEMENTED: BookInstance detail: ${req.params.id}`);
+        const bookInstance = await BookInstance.findById(req.params.id)
+            .populate("book")
+            .exec();
+
+        if (bookInstance === null) {
+            const err = new Error("Book copy not found");
+            err.status = 404;
+            return next(err);
+        }
+
+        res.render("bookinstance_detail", {
+            title: "Book:",
+            bookinstance: bookInstance,
+        });
     }
 );
 
