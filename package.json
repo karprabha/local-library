@@ -10,6 +10,9 @@
         "devstart": "nodemon -e js,pug,scss ./bin/www",
         "serverstart": "set \"BROWSER=none\" && start chrome http://localhost:3000 -incognito && SET DEBUG=local-library:* && npm run devstart"
     },
+    "engines": {
+        "node": ">=14.20.1"
+    },
     "keywords": [],
     "author": "Prabhakar Yadav",
     "license": "ISC",
