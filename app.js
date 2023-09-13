@@ -5,6 +5,9 @@ import cookieParser from "cookie-parser";
 import logger from "morgan";
 import { fileURLToPath } from "url";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,10 +23,9 @@ app.set("view engine", "pug");
 
 // Mongoose
 mongoose.set("strictQuery", false);
-const mongoDBURL = "mongodb://127.0.0.1:27017/local-library";
 
 const connectDB = async () => {
-    return await mongoose.connect(mongoDBURL);
+    return await mongoose.connect(process.env.MONGODB_URI);
 };
 
 connectDB().catch((err) => console.log(err));
